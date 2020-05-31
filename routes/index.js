@@ -6,6 +6,6 @@ router.get('/', (req, res) => {
   })
 })
 
-router.use('/neo', require('./neo'))
+router.use('/repositories', require('./repositories/repositories-router'))
 
 module.exports = router

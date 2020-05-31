@@ -6,7 +6,6 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const helmet = require('helmet')
-const updateDB = require('./helpers/update-db')
 
 // app dependencies
 const app = express()
@@ -16,15 +15,14 @@ app.use(cors())
 app.use(helmet())
 app.use(compression())
 app.use(morgan('common'))
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // routes
-app.use(require('./controllers'))
+app.use(require('./routes'))
 
-// fetch data
-updateDB()
-
+const PORT_NUMBER = process.env.PORT || 8000
 // start the server
-app.listen(process.env.PORT_NUMBER, () => {
-  console.log('listening to connections on port: ' + process.env.PORT_NUMBER)
+app.listen(PORT_NUMBER, () => {
+  console.log('listening to connections on port: ' + PORT_NUMBER)
 })
