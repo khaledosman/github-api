@@ -8,9 +8,9 @@ const { getRepositories } = require('../../helpers/github-api-helpers')
 
 router.get('/', async (req, res) => {
   try {
-    const { language, created, limit } = req.query
+    const { language, created, per_page: perPage } = req.query
     // console.log({ language, created })
-    const response = await getRepositories({ sort: 'stars', order: 'desc', qualifiers: { language, created: `>=${created}` }, limit })
+    const response = await getRepositories({ sort: 'stars', order: 'desc', qualifiers: { language, created: `>=${created}` }, per_page: perPage })
     res.send(response)
   } catch (error) {
     res.status(500).json({ error })
